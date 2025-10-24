@@ -4,7 +4,6 @@ import { Note } from "@/types/note";
 
 const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
-//! 🔹 Axios defaults
 const api = axios.create({
   baseURL:
     process.env.NEXT_PUBLIC_NOTEHUB_BASE_URL ??
@@ -16,7 +15,6 @@ const api = axios.create({
   },
 });
 
-//! 🔹 Error notifications
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -32,7 +30,6 @@ export interface NotesResponse {
   totalPages: number;
 }
 
-//! 🔹 API functions
 export const fetchNotes = async ({
   page,
   search,
