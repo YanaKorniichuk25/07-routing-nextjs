@@ -4,27 +4,26 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getSingleNote } from "@/lib/api";
-import NotePreviewClient from "@/components/NotePreview/NotePreview.client";
+import NoteDetailsClient from "./NoteDetails.client";
 import type { Metadata } from "next";
 
-interface NotePreviewPageProps {
-  params: { id: string };
+interface NotePageProps {
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({
   params,
-}: NotePreviewPageProps): Promise<Metadata> {
+}: NotePageProps): Promise<Metadata> {
+  const { id } = await params;
   return {
-    title: `Note ${params.id} — NoteHub`,
+    title: `Note ${id} — NoteHub`,
   };
 }
 
-export default async function NotePreviewPage({ params }: NotePreviewPageProps) {
-  const { id } = params;
-
+export default async function NotePage({ params }: NotePageProps) {
+  const { id } = await params;
   const queryClient = new QueryClient();
 
-  // Попередньо завантажуємо нотатку для кешу React Query
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
     queryFn: () => getSingleNote(id),
@@ -32,7 +31,7 @@ export default async function NotePreviewPage({ params }: NotePreviewPageProps) 
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotePreviewClient />
+      <NoteDetailsClient noteId={id} />
     </HydrationBoundary>
   );
 }

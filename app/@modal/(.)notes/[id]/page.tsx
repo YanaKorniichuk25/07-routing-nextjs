@@ -4,17 +4,18 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getSingleNote } from "@/lib/api";
-import NotePreviewClient from "@/components/NotePreview/NotePreview.client";
+import NotePreviewClient from "./NotePreview.client";
 
 interface NotePreviewPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default async function NotePreviewPage({ params }: NotePreviewPageProps) {
-  const { id } = params;
+export default async function NotePreviewPage({
+  params,
+}: NotePreviewPageProps) {
+  const { id } = await params;
   const queryClient = new QueryClient();
 
-  // Попереднє завантаження даних з бекенду
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
     queryFn: () => getSingleNote(id),

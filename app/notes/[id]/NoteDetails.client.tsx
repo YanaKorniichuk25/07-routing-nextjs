@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api";
+import { getSingleNote } from "@/lib/api";
 import type { Note } from "@/types/note";
 import css from "./NoteDetails.module.css";
 
@@ -16,7 +16,7 @@ export default function NoteDetailsClient({
 }: NoteDetailsProps) {
   const { data: note, isLoading } = useQuery<Note, Error>({
     queryKey: ["note", noteId],
-    queryFn: () => fetchNoteById(noteId), // залишено рядком
+    queryFn: () => getSingleNote(noteId),
     initialData: initialNote,
     refetchOnMount: false,
     staleTime: 30_000,
@@ -26,7 +26,7 @@ export default function NoteDetailsClient({
     return <p>Loading, please wait...</p>;
   }
 
-  if (!note) return null; // нічого не рендеримо, якщо нотатку не отримано
+  if (!note) return null;
 
   return (
     <div className={css.container}>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "modern-normalize";
 import { Footer } from "../components/Footer/Footer";
-import { Header } from "../components/Header/Header";
+import Header from "../components/Header/Header";
 import { TanStackProvider } from "../components/TanStackProvider/TanStackProvider";
 import { Toaster } from "react-hot-toast";
 import React from "react";
@@ -21,12 +21,13 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <TanStackProvider>{children}</TanStackProvider>
-        <Header />
-        <main>{children}</main>
-        {modal}
-        <Footer />
-        <Toaster position="top-right" />
+        <TanStackProvider>
+          <Header />
+          <main>{children}</main>
+          {modal}
+          <Footer />
+          <Toaster position="top-right" />
+        </TanStackProvider>
       </body>
     </html>
   );

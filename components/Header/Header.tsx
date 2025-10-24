@@ -1,9 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import css from "./Header.module.css";
+import TagsMenu from "../TagsMenu/TagsMenu";
 
-export const Header = () => {
+export default async function Header() {
   return (
     <header className={css.header}>
       <Link href="/" aria-label="Home" className={css.logo}>
@@ -15,10 +14,10 @@ export const Header = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/notes">Notes</Link>
+            <TagsMenu />
           </li>
         </ul>
       </nav>
     </header>
   );
-};
+}
