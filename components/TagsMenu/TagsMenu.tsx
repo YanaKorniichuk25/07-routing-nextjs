@@ -3,7 +3,6 @@
 import { useState } from "react";
 import css from "./TagsMenu.module.css";
 import { tagsList } from "@/types/note";
-import Link from "next/link";
 
 function TagsMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +17,9 @@ function TagsMenu() {
         <ul className={css.menuList}>
           {tagsList.map((tag) => (
             <li className={css.menuItem} key={tag}>
-              <Link
-                href={`/notes/filter/${tag}`}
-                onClick={toggle}
-                className={css.menuLink}
-              >
+              <a href={`/notes/filter/${tag}`} className={css.menuLink}>
                 {tag}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
