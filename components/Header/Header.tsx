@@ -2,27 +2,23 @@
 
 import Link from "next/link";
 import css from "./Header.module.css";
-import TagsMenu from "../TagsMenu/TagsMenu";
 
-export default function Header() {
-  return (
-    <header className={css.header}>
-      <Link href="/" aria-label="Home" className={css.logo}>
-        NoteHub
-      </Link>
+const Header = () => (
+  <header className={css.header}>
+    <Link href="/" aria-label="Home">
+      NoteHub
+    </Link>
+    <nav aria-label="Main Navigation">
+      <ul className={css.navigation}>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/notes/filter/all">Notes</Link>
+        </li>
+      </ul>
+    </nav>
+  </header>
+);
 
-      <nav aria-label="Main Navigation">
-        <ul className={css.navigation}>
-          {/* "Технічний" лінк — для проходження перевірки */}
-          <li className={css.hiddenLink}>
-            <Link href="/notes/filter/all" aria-label="All notes"></Link>
-          </li>
-
-          <li>
-            <TagsMenu />
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
-}
+export default Header;
